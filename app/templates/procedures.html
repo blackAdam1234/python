@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Procedures</h1>
+    <hr>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProcedureModal">
+          Add Procedure
+        </button>
+      </div>
+      <div class="col-md-6 text-end">
+        <form action="{{ url_for('procedures.index') }}" method="GET">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by Facility Name" name="facility_name" value="{{ request.args.get('facility_name', '') }}">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% if procedures %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Facility Name</th>
+            <th scope="col">Procedure Type</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Quality</th>
+            <th scope="col">Value</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for procedure in procedures %}
+            <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ procedure.facility_name }}</td>
+              <td>{{ procedure.procedure_type_name }}</td>
+              <td>{{ procedure.cost }}</td>
+              <td>{{ procedure.quality }}</td>
+              <td>{{ procedure.value }}</td>
+              <td>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editProcedureModal" data-id="{{ procedure.id }}" data-facility-id="{{ procedure.facility_id }}" data-procedure-type-id="{{ procedure.procedure_type_id }}" data-cost="{{ procedure.cost }}" data-quality="{{ procedure.quality }}" data-value="{{ procedure.value }}">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteProcedureModal" data-id="{{ procedure.id }}">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No procedures found.</p>
+    {% endif %}
+
+    {% include 'procedures/_add_procedure_modal.html' %}
+    {% include 'procedures/_edit_procedure_modal.html' %}
+    {% include 'procedures/_delete_procedure_modal.html' %}
+  </div>
+{% endblock %}

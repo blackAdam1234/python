@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <!-- Bootstrap 5 JavaScript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+</html>

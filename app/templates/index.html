@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+{% include 'header.html' %}
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Hospital Dashboard</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('facility') }}">Facility</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('rating') }}">Rating</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('procedures') }}">Procedures</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('pro_types') }}">Pro Types</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('export') }}">Export</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- Content -->
+<div class="container-fluid">
+	{% block content %}
+	{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-light">
+	<div class="container">
+		<span class="text-muted">Hospital Dashboard &copy; 2023</span>
+	</div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Export to PDF</h1>
+  <form method="POST" action="{{ url_for('export_pdf') }}">
+    <div class="form-group">
+      <label for="query">Select query:</label>
+      <select name="query" class="form-control">
+        <option value="facilities_by_safety_rating">Facilities by Safety Rating</option>
+        <option value="facilities_by_heart_attack_quality">Facilities with Average Procedure Heart Attack Quality</option>
+        <option value="procedures_with_zero_cost">Procedures with Cost of 0</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="start_date">Start Date:</label>
+      <input type="date" class="form-control" name="start_date">
+    </div>
+    <div class="form-group">
+      <label for="end_date">End Date:</label>
+      <input type="date" class="form-control" name="end_date">
+    </div>
+    <button type="submit" class="btn btn-primary">Export to PDF</button>
+  </form>
+</div>
+{% endblock %}

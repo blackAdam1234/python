@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% include 'header.html' %}
+
+{% block content %}
+  <h1>Facilities</h1>
+  <a href="{{ url_for('add_facility') }}" class="btn btn-primary mb-2">Add Facility</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for facility in facilities %}
+        <tr>
+          <td>{{ facility.id }}</td>
+          <td>{{ facility.name }}</td>
+          <td>{{ facility.city }}</td>
+          <td>{{ facility.state }}</td>
+          <td>{{ facility.type }}</td>
+          <td>
+            <a href="{{ url_for('edit_facility', id=facility.id) }}" class="btn btn-sm btn-primary">Edit</a>
+            <form action="{{ url_for('delete_facility', id=facility.id) }}" method="POST" style="display:inline-block">
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this facility?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% include 'header.html' %}
+
+
+{% block content %}
+<div class="container">
+  <h1>Ratings</h1>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <form id="search-form">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search" id="search-input">
+          <button class="btn btn-outline-secondary" type="submit" id="search-btn"><i class="bi bi-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped" id="ratings-table">
+        <thead>
+          <tr>
+                            <th>ID</th>
+                            <th>Overall</th>
+                            <th>Mortality</th>
+                            <th>Safety</th>
+                            <th>Readmission</th>
+                            <th>Experience</th>
+                            <th>Effectiveness</th>
+                            <th>Timeliness</th>
+                            <th>Imaging</th>
+                            <th>Facility ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rating in ratings %}
+          <tr>
+            <td>{{ rating.id }}</td>
+          <td>{{ rating.overall }}</td>
+          <td>{{ rating.mortality }}</td>
+          <td>{{ rating.safety }}</td>
+          <td>{{ rating.readmission }}</td>
+          <td>{{ rating.experience }}</td>
+          <td>{{ rating.effectiveness }}</td>
+          <td>{{ rating.timeliness }}</td>
+          <td>{{ rating.imaging }}</td>
+          <td>{{ rating.fac_id }}</td>
+          <td>
+              <a href="{{ url_for('edit_rating', rating_id=rating.id) }}" class="btn btn-sm btn-primary">Edit</a>
+              <a href="{{ url_for('delete_rating', rating_id=rating.id) }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <a href="{{ url_for('add_rating') }}" class="btn btn-primary">Add Rating</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $(document).ready(function() {
+    // Initialize the table
+    $('#ratings-table').DataTable({
+      "paging": true,
+      "ordering": true,
+      "info": true,
+      "searching": true,
+      "lengthChange": false,
+      "pageLength": 10,
+      "language": {
+        "searchPlaceholder": "Search ratings"
+      }
+    });
+
+    // Submit the search form
+    $('#search-form').submit(function(event) {
+      event.preventDefault();
+      var searchValue = $('#search-input').val();
+      $('#ratings-table').DataTable().search(searchValue).draw();
+    });
+  });
+</script>
+{% endblock %}

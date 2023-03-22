@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mb-4">Hospital Dashboard</h1>
+    <div class="row mb-3">
+      <div class="col">
+        <h2>Facilities</h2>
+        <a class="btn btn-primary" href="{{ url_for('facilities') }}">View All</a>
+        <a class="btn btn-primary" href="{{ url_for('add_facility') }}">Add Facility</a>
+      </div>
+      <div class="col">
+        <h2>Procedures</h2>
+        <a class="btn btn-primary" href="{{ url_for('procedures') }}">View All</a>
+        <a class="btn btn-primary" href="{{ url_for('add_procedure') }}">Add Procedure</a>
+      </div>
+      <div class="col">
+        <h2>Procedure Types</h2>
+        <a class="btn btn-primary" href="{{ url_for('pro_types') }}">View All</a>
+        <a class="btn btn-primary" href="{{ url_for('add_pro_type') }}">Add Procedure Type</a>
+      </div>
+      <div class="col">
+        <h2>Ratings</h2>
+        <a class="btn btn-primary" href="{{ url_for('ratings') }}">View All</a>
+        <a class="btn btn-primary" href="{{ url_for('add_rating') }}">Add Rating</a>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <h2>Export to PDF</h2>
+        <form action="{{ url_for('export') }}" method="post">
+          <div class="mb-3">
+            <label for="query" class="form-label">Select a Summary:</label>
+            <select class="form-select" name="query" required>
+              <option value="">Select a Summary</option>
+              <option value="same_rating_safety">Facilities with the Same Rating.Safety</option>
+              <option value="avg_heart_attack_quality">Facilities with Average Procedure.Heart Attack.Quality</option>
+              <option value="zero_hip_knee_cost">Information where Procedure.Hip Knee.Cost equals 0</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="filename" class="form-label">File Name:</label>
+            <input type="text" class="form-control" name="filename" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Export to PDF</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

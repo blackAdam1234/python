@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class="my-4">Facilities</h1>
+
+  <div class="row mb-3">
+    <div class="col">
+      <a href="{{ url_for('add_facility') }}" class="btn btn-primary">Add Facility</a>
+    </div>
+    <div class="col">
+      <form class="d-flex" method="GET" action="{{ url_for('search_facilities') }}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_query">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for facility in facilities %}
+        <tr>
+          <td>{{ facility.id }}</td>
+          <td>{{ facility.name }}</td>
+          <td>{{ facility.city }}</td>
+          <td>{{ facility.state }}</td>
+          <td>{{ facility.type }}</td>
+          <td>
+            <a href="{{ url_for('edit_facility', facility_id=facility.id) }}" class="btn btn-primary">Edit</a>
+            <a href="{{ url_for('delete_facility', facility_id=facility.id) }}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
